@@ -15,14 +15,14 @@ steps:
     args:
       - build
       - '-t'
-      - 'gcr.io/$PROJECT_ID/user-management-api:$SHORT_SHA'
+      - 'gcr.io/${_PROJECT_ID}/user-management-api:${_SHORT_SHA}'
       - .
 
   - name: 'gcr.io/cloud-builders/docker'
     id: Push Docker image
     args:
       - push
-      - 'gcr.io/$PROJECT_ID/user-management-api:$SHORT_SHA'
+      - 'gcr.io/${_PROJECT_ID}/user-management-api:${_SHORT_SHA}'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: Deploy to Cloud Run
@@ -31,12 +31,12 @@ steps:
       - run
       - deploy
       - user-management-api
-      - --image=gcr.io/$PROJECT_ID/user-management-api:$SHORT_SHA
+      - --image=gcr.io/${_PROJECT_ID}/user-management-api:${_SHORT_SHA}
       - --region=us-central1
       - --platform=managed
       - --allow-unauthenticated
 images:
-  - 'gcr.io/$PROJECT_ID/user-management-api:$SHORT_SHA'
+  - 'gcr.io/${_PROJECT_ID}/user-management-api:${_SHORT_SHA}'
 
 options:
   logging: CLOUD_LOGGING_ONLY
